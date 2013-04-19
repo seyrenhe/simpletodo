@@ -81,8 +81,8 @@ class Delete:
 class Index:
 
     def GET(self):
-        todos1 = db.select(tb, order='finished asc, id asc')
-        todos2 = db.select(tb, order='finished asc, id asc')
+        todos1 = db.select(tb, order='finished asc, id asc',limit = 5)
+        todos2 = db.select(tb, order='finished desc, id desc',limit = 5)
 
         return render.index(todos1,todos2)
 
