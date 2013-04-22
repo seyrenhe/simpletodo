@@ -151,12 +151,10 @@ class Login:
             else:
                 session.login = 0
                 session.privilege = 0
-                render = creater_render(session.privilege)
                 return render.error('帐号密码错误','/login')
         except:
             session.login = 0
             session.privilege = 0
-            render = creater_render(session.privilege)
             return render.error('帐号密码错误','/login')
 
 
