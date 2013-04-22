@@ -7,7 +7,7 @@ import sys
 reload(sys) #python初始化后会删除sys.setdefaultencoding方法,需要重新载入sys模块来使用这个方法.
 sys.setdefaultencoding('utf-8')
 
-render = settings.render 
+render = settings.render  #
 db = settings.db
 tb = 'todo'
 user = 'user'
@@ -19,6 +19,28 @@ def get_by_id(id):
     if not s:
         return False
     return s[0]
+
+def logged():
+        if session.login = 1:
+            return True
+        else:
+            return False
+
+def create_render(privilege):
+    if logged():
+        if privilege==0:
+            render = render_mako(
+                directories=['templates/admin'],
+                input_encoding='utf-8',
+                output_encoding='utf-8',
+                )
+        elif privilege==1:
+            render = render_mako(
+                directories=['templates/user'],
+                input_encoding='utf-8',
+                output_encoding='utf-8',
+                )
+    return render
 
 class New:
 
@@ -81,15 +103,24 @@ class Delete:
 class Index:
 
     def GET(self):
-        todos1 = db.select(tb, order='finished asc, id asc',limit = 5)
-        todos2 = db.select(tb, order='finished desc, id desc',limit = 5)
+        if logged():
+            todos1 = db.select(tb, order='finished asc, id asc',limit = 5)
+            todos2 = db.select(tb, order='finished desc, id desc',limit = 5)
 
-        return render.index(todos1,todos2)
+            return render.index(todos1,todos2)
+            
+        else:
+            render = creater_render(session.privilege)
+            return "%s" % (
+                render.login())
+       
 
 
 class AddUser:
 
     def GET(self):
+        user,passwd = web.input().user, web.input().passwd
+        dbadd = db.insert(user,where ='user=$user')
         return render.adduser()
 
     def POST():
@@ -98,10 +129,35 @@ class AddUser:
 class Login:
 
     def GET(self):
-        return render.login()
+        if logged():
+            render = creater_render(session.privilege)
+            return "%s" % (
+                render.lndex())
+        else:
+            render = creater_render(session.privilege)
+            return "%s" % (
+                render.login())
 
-    def POST():
-        pass
+    def POST(self):
+        user,passwd = web.input().user, web.input().passwd
+        ident = db.query("select * from example_user where user = '%s'" % (user)).getresult()
+        try:
+            if passwd == ident[0][2]:
+                session.login = 1
+                session.privilege = [0][4]
+                render = creater_render(session.privilege)
+                return "%s" % (
+                    render.index())
+            else:
+                session.login = 0
+                session.privilege = 0
+                render = creater_render(session.privilege)
+                return render.error('帐号密码错误','/login')
+        except:
+            session.login = 0
+            session.privilege = 0
+            render = creater_render(session.privilege)
+            return render.error('帐号密码错误','/login')
 
 
 class Admin:
