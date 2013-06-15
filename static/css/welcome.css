@@ -1,0 +1,22 @@
+body{background: #f2f2f0;}
+a{font-size: 12px;color: #60BF73}
+a:focus{outline: none;}
+a:hover{color:#3DA4CC;color:#549962;-webkit-transition: 0.4s; -moz-transition: 0.4s;transition: 0.4s;}
+/*ul,li{padding:0;margin: 0;list-style: none;}*/
+#welcome_wrapper{text-align: center;}
+.welcome_inner{width: 600px;margin: 0 auto;}
+#welcome_body{}
+#welcome_wrapper header{text-align: center;}
+header{padding:30px 0 20px 0;}
+header a{display: block;height: 50px;width: 100px;margin: 0 auto; background: url(/static/public/img/logo_100x50.png) center center no-repeat;text-indent: -9999em;margin-bottom: 20px;}
+header .logo{padding:0;margin: 0;}
+#avatar{padding: 4px;background: #fff;display: inline-block;border-radius: 50%;box-shadow: 0 1px 2px rgba(0,0,0,0.15)}
+#avatar img{border-radius: 50%;}
+/*填写邮箱页面*/
+#landingForm_wrapper{background: #fff;padding: 10px;box-shadow: 0 1px 2px rgba(0,0,0,0.15);/*border-radius: 5px;*/}
+#landingForm_wrapper legend{padding: 4px 0 10px 0; font-size: 16px;line-height: 1.78;}
+#landingForm_wrapper .input-prepend{margin: 20px 0 30px 0;position: relative;}
+#landingForm_wrapper .why{font-size: 12px;color: #999}
+input.Validform_error{background: #ffe7e7}
+#landingForm_wrapper .Validform_checktip{font-size: 12px;color: #666;vertical-align: -3px;position: absolute;width: auto;top: 5px;}
+#promise{padding: 10px;color: #aaa;font-size: 12px;text-indent: -9999em; /*text-align:left;*/} 

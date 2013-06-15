@@ -62,6 +62,7 @@ config = web.storage(
     site_name = 'simple-todo',
     site_desc = '',
     static = '/static',
+    site_creater = 'Samson Studio',
 )
 
 

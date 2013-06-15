@@ -7,10 +7,11 @@ import sys
 reload(sys) #python初始化后会删除sys.setdefaultencoding方法,需要重新载入sys模块来使用这个方法.
 sys.setdefaultencoding('utf-8')
 
-render = settings.render  #
+
+render = settings.render
 db = settings.db
 tb = 'todo'
-user = 'user'
+user='user'
 
 
 
@@ -20,36 +21,15 @@ def get_by_id(id):
         return False
     return s[0]
 
-def logged():
-        if session.login = 1:
-            return True
-        else:
-            return False
-
-def create_render(privilege):
-    if logged():
-        if privilege==0:
-            render = render_mako(
-                directories=['templates/admin'],
-                input_encoding='utf-8',
-                output_encoding='utf-8',
-                )
-        elif privilege==1:
-            render = render_mako(
-                directories=['templates/user'],
-                input_encoding='utf-8',
-                output_encoding='utf-8',
-                )
-    return render
-
 class New:
 
     def POST(self):
+        name=web.cookies().get('have_user')
         i = web.input()
         title = i['title']
         if not title:
             return render.error('标题是必须的', None)
-        db.insert(tb, title=title, post_date=datetime.now())
+        db.insert(tb, title=title, post_date=datetime.now(),user=name)
         raise web.seeother('/')
 
 
@@ -103,65 +83,12 @@ class Delete:
 class Index:
 
     def GET(self):
-        if logged():
-            todos1 = db.select(tb, order='finished asc, id asc',limit = 5)
-            todos2 = db.select(tb, order='finished desc, id desc',limit = 5)
-
+        uname= web.cookies().get('have_user')
+        if uname:
+            myvar = dict(name=uname)
+            todos1 = db.select(tb,myvar,where="user =$name", order='finished asc, id asc')
+            todos2 = db.select(tb, myvar,where="user =$name",order='finished asc, id asc')
             return render.index(todos1,todos2)
-            
         else:
-            render = creater_render(session.privilege)
-            return "%s" % (
-                render.login())
-       
+            return web.seeother('/login')
 
-
-class AddUser:
-
-    def GET(self):
-        user,passwd = web.input().user, web.input().passwd
-        dbadd = db.insert(user,where ='user=$user')
-        return render.adduser()
-
-    def POST():
-        pass
-
-class Login:
-
-    def GET(self):
-        if logged():
-            render = creater_render(session.privilege)
-            return "%s" % (
-                render.lndex())
-        else:
-            render = creater_render(session.privilege)
-            return "%s" % (
-                render.login())
-
-    def POST(self):
-        user,passwd = web.input().user, web.input().passwd
-        ident = db.query("select * from example_user where user = '%s'" % (user)).getresult()
-        try:
-            if passwd == ident[0][2]:
-                session.login = 1
-                session.privilege = [0][4]
-                render = creater_render(session.privilege)
-                return "%s" % (
-                    render.index())
-            else:
-                session.login = 0
-                session.privilege = 0
-                return render.error('帐号密码错误','/login')
-        except:
-            session.login = 0
-            session.privilege = 0
-            return render.error('帐号密码错误','/login')
-
-
-class Admin:
-
-    def GET():
-        pass
-
-    def POST():
-        pass

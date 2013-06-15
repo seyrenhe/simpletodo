@@ -10,8 +10,10 @@ urls = (
     '/todo/(\d+)/edit',     pre_fix + 'todo.Edit',
     '/todo/(\d+)/delete',   pre_fix + 'todo.Delete',
     '/todo/(\d+)/finish',   pre_fix + 'todo.Finish',
-    '/AddUser',             pre_fix + 'todo.AddUser',
+    '/register',             pre_fix + 'login.Register',
     '/Admin',               pre_fix + 'todo.Admin',
-    '/Login',               pre_fix + 'todo.Login',
+    '/login',               pre_fix + 'login.Login',
+    '/welcome',         pre_fix + 'login.welcome',
+    '/logout',             pre_fix + 'login.Logout',
 
 )

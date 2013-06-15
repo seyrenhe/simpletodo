@@ -1,0 +1,32 @@
+$:render.header()
+<div id="reg">
+    <h1>注册</h1>
+    <hr>
+    <form action = "/register" method = "post" id="regForm">
+        <fieldset>
+            <div id="div_id_username" class="control-group required">
+                <label class="control-label" for="name">用户名</label>
+                <input id="name" type = "text" name = "name" required="" minlength="4">    
+            </div>
+            <div id="div_id_email" class="control-group required">
+                <label class="control-label" for="email">电子邮件</label>
+                <input id="email" type = "text" name = "email" required="">
+            </div>
+            <div id="div_id_password1" class="control-group required">
+                <label class="control-label" for="pwd1">设置密码</label>
+                <input id="pwd1" type = "password" name = "pwd1" required="">
+            </div>
+            <div id="div_id_password2" class="control-group required">
+                <label class="control-label" for="pwd2">重复密码</label>
+                <input id="pwd2" type = "password" name = "pwd2" required="">
+            </div>
+            <div class="form-actions">
+                  <p>
+                    <input type="submit" class="btn btn-primary" value="注册">
+                  </p>
+            </div>
+        </fieldset>
+    </form>
+</div><!--/reg-->
+</div><!--/container-->
+$:render.foot()
